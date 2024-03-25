@@ -1,7 +1,8 @@
 <script setup lang="ts">
+import Navbar from '@/components/Navbar.vue'
 </script>
 
 <template>
-  <p class="text-lg">Hello world</p>
+  <Navbar />
 </template>
 
