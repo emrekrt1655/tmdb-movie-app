@@ -1,0 +1,34 @@
+import { ref, computed } from 'vue'
+import { defineStore } from 'pinia'
+import type { PopularMovieResponse, PopularMovie, PopularMoviesInfo } from '../types/Movie'
+
+export const useMovieStore = defineStore('movie', () => {
+  const popularMovies = ref<PopularMovie[]>([])
+  const popularMoviesInfoList = ref<PopularMoviesInfo[]>([])
+
+  const url = `${import.meta.env.VITE_BASE_URL}movie/popular?language=en-US&page=1`
+  const options = {
+    method: 'GET',
+    headers: {
+      accept: 'application/json',
+      Authorization: `Bearer ${import.meta.env.VITE_API_KEY}`
+    }
+  }
+
+  const initPopularMovies = async () => {
+    try {
+      const res = await fetch(url, options)
+      const json: PopularMovieResponse = await res.json()
+      popularMovies.value = json.results
+      const transformedData = json.results.map((movie) => ({
+        title: movie.title,
+        backdrop_path: movie.backdrop_path
+      }))
+      popularMoviesInfoList.value = transformedData
+    } catch (err) {
+      console.error('error:' + err)
+    }
+  }
+
+  return { popularMovies, popularMoviesInfoList, initPopularMovies }
+})

@@ -1,13 +1,11 @@
 <script setup lang="ts">
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-
 
 </script>
 
 <template>
-    <div class="w-full mt-6">
+    <div class="w-full  bg-slate-950">
         <container class="container mx-auto w-4/5 ">
-            <nav class="flex justify-between items-center menu">
+            <nav class="flex justify-between items-center menu p-2">
                 <ul class="flex items-center text-white">
                     <RouterLink
                         class="text-red-500 bg-white px-4 py-2 rounded-lg hover:text-red-600 hover:bg-gray-200 transition duration-300 ease-in-out"
