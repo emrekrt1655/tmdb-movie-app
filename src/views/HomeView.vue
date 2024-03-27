@@ -1,16 +1,12 @@
 <script setup lang="ts">
 import Search from '@/components/Search.vue'
-import { useMovieStore } from '@/stores/movie';
-import { onMounted } from 'vue';
+import MovieList from '@/components/MovieList.vue'
 
-const movieStore = useMovieStore()
-
-onMounted(async () => {
-    await movieStore.initPopularMovies()
-})
-
+import { useMovieTrendingStore } from '@/stores/movieTrending';
+const trendingStore = useMovieTrendingStore()
 </script>
 
 <template>
     <Search />
+    <MovieList title="Trends in today" :trending-list="trendingStore.fiveElementsOfList" />
 </template>

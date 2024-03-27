@@ -23,4 +23,5 @@ export interface PopularMovieResponse {
 export interface PopularMoviesInfo {
   title: string
   backdrop_path: string
+  id: number
 }
