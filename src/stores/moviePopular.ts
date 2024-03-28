@@ -6,6 +6,8 @@ export const useMoviePopularStore = defineStore('moviePopular', () => {
   const popularMovies = ref<PopularMovie[]>([])
   const popularMoviesInfoList = ref<PopularMoviesInfo[]>([])
 
+  const fiveElementsOfList = computed(() => popularMovies.value.slice(0, 5))
+
   const url = `${import.meta.env.VITE_BASE_URL}movie/popular?language=en-US&page=1`
   const options = {
     method: 'GET',
@@ -31,5 +33,5 @@ export const useMoviePopularStore = defineStore('moviePopular', () => {
     }
   }
 
-  return { popularMovies, popularMoviesInfoList, initPopularMovies }
+  return { popularMovies, popularMoviesInfoList, initPopularMovies, fiveElementsOfList }
 })
