@@ -25,3 +25,10 @@ export interface PopularMoviesInfo {
   backdrop_path: string
   id: number
 }
+
+export interface UpcomingMovieResponse extends PopularMovieResponse {
+  dates: {
+    maximum: string
+    minimum: string
+  }
+}

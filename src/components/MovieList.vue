@@ -7,7 +7,7 @@
                 <RouterLink class="underline" to="#">All</RouterLink>
             </div>
             <div class="movie-list flex ">
-                <MovieCard v-for="(movie, index) in trendingList" :movie="movie" :trending="true" :key="movie.id"
+                <MovieCard v-for="(movie, index) in trendingList" :movie="movie" :trending="props.trending" :key="movie.id"
                     :index="index + 1" />
             </div>
 
@@ -16,6 +16,6 @@
 </template>
 
 <script setup lang="ts">
-const props = defineProps(['title', 'trendingList'])
+const props = defineProps(['title', 'trendingList', 'trending'])
 import MovieCard from "@/components/MovieCard.vue"
 </script>
