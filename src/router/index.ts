@@ -7,6 +7,11 @@ const router = createRouter({
       path: '/',
       name: 'home',
       component: () => import('../views/HomeView.vue')
+    },
+    {
+      path: '/trending',
+      name: 'trending',
+      component: () => import('../views/TrendingView.vue')
     }
     // {
     //   path: '/about',
