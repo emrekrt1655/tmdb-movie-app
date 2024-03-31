@@ -12,13 +12,13 @@ const movieUpcomingStore = useUpcomingMovieStore()
 
 onMounted(async () => {
   await moviePopularStore.initPopularMovies()
-  await movieTrendingStore.initTrendingMovies('day')
+  await movieTrendingStore.initTrendingMovies(active.value)
   await movieUpcomingStore.initUpcomingMovies()
 })
 
 import { ref } from 'vue'
 
-const active = ref('')
+const active = ref('day')
 
 const onActiveChange = (value: string) => {
   active.value = value
@@ -31,7 +31,7 @@ const onActiveChange = (value: string) => {
 
   <div class="">
 
-    <RouterView @active-change="onActiveChange" />
+    <RouterView :active="active" @active-change="onActiveChange" />
 
   </div>
 </template>

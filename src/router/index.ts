@@ -11,16 +11,9 @@ const router = createRouter({
     {
       path: '/trending',
       name: 'trending',
-      component: () => import('../views/TrendingView.vue')
+      component: () => import('../views/TrendingView.vue'),
+      props: (route) => ({ active: route.query.active || 'day' })
     }
-    // {
-    //   path: '/about',
-    //   name: 'about',
-    //   // route level code-splitting
-    //   // this generates a separate chunk (About.[hash].js) for this route
-    //   // which is lazy-loaded when the route is visited.
-    //   component: () => import('../views/AboutView.vue')
-    // }
   ]
 })
 
