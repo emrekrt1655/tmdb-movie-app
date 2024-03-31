@@ -1,20 +1,27 @@
 <script setup lang="ts">
 import MovieCard from '@/components/MovieCard.vue'
-import { ref } from 'vue'
+import { ref, defineEmits } from 'vue'
 import { useMovieTrendingStore } from '@/stores/movieTrending';
 
 const trendingStore = useMovieTrendingStore()
+const emit = defineEmits(['active-change']);
 
-const active = ref('today')
+
+
+const active = ref('day')
+const setActive = (value: string) => {
+    active.value = value
+    emit('active-change', active.value)
+}
 </script>
 
 <template>
     <div class="w-full h-full mt-6 text-white">
         <h1 class="ml-6 mb-6 text-3xl">Trends</h1>
         <div class="ml-6 mb-6">
-            <button @click="active = 'today'" :class="{ 'bg-red-700': active === 'today' }"
+            <button @click="setActive('day')" :class="{ 'bg-red-700': active === 'day' }"
                 class="p-0.5 mr-3 border border-white">Today</button>
-            <button @click="active = 'week'" :class="{ 'bg-red-700': active === 'week' }"
+            <button @click="setActive('week')" :class="{ 'bg-red-700': active === 'week' }"
                 class="p-0.5 mr-3 border border-white">This Week</button>
         </div>
         <div class="ml-6">
