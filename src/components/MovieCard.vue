@@ -5,10 +5,10 @@ const baseUrl = import.meta.env.VITE_BASE_IMAGE_URL;
 
 <template>
     <div class="flex">
-        <RouterLink class="movie-card w-1/5 mr-4" :to="props.movie ? `/movie/${props.movie.id}` : ''">
+        <RouterLink class="movie-card w-3/5 mr-4" :to="props.movie ? `/movie/${props.movie.id}` : ''">
             <div class="flex h-full">
                 <span v-if="props.trending" class="index-label">{{ props.index }}</span>
-                <img class="h-full" :class="{ 'w-1/2': props.trending }" v-if="props.movie && props.movie.backdrop_path"
+                <img class="h-full" :class="{ 'w-3/4': props.trending }" v-if="props.movie && props.movie.backdrop_path"
                     :src="`${baseUrl}${props.movie.backdrop_path}`" :alt="props.movie.title">
                 <p v-else>No backdrop path available for this movie.</p>
             </div>
@@ -31,5 +31,6 @@ const baseUrl = import.meta.env.VITE_BASE_IMAGE_URL;
     color: gray;
     margin-right: -30px;
     align-self: center;
+    z-index: 999;
 }
 </style>
