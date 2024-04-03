@@ -5,7 +5,8 @@ const baseUrl = import.meta.env.VITE_BASE_IMAGE_URL;
 
 <template>
     <div class="flex">
-        <RouterLink class="movie-card w-3/5 mr-4" :to="props.movie ? `/movie/${props.movie.id}` : ''">
+        <RouterLink :class="[props.isName ? 'w-2/5' : 'w-3/5', 'movie-card', 'mr-4']"
+            :to="props.movie ? `/movie/${props.movie.id}` : ''">
             <div class="flex h-full">
                 <span v-if="props.trending" class="index-label">{{ props.index }}</span>
                 <img class="h-full" :class="{ 'w-3/4': props.trending }" v-if="props.movie && props.movie.backdrop_path"

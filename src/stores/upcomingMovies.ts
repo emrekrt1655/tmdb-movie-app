@@ -4,6 +4,7 @@ import type { PopularMovie, PopularMoviesInfo, UpcomingMovieResponse } from '../
 
 export const useUpcomingMovieStore = defineStore('upcomingMovie', () => {
   const upcomingMovies = ref<PopularMovie[]>([])
+  const upcomingMoviesDate = ref<{ maximum: string; minimum: string }>()
   const upcomingMoviesInfoList = ref<PopularMoviesInfo[]>([])
 
   const fiveElementsOfList = computed(() => upcomingMoviesInfoList.value.slice(0, 5))
@@ -21,6 +22,7 @@ export const useUpcomingMovieStore = defineStore('upcomingMovie', () => {
     try {
       const res = await fetch(url, options)
       const json: UpcomingMovieResponse = await res.json()
+      upcomingMoviesDate.value = json.dates
       upcomingMovies.value = json.results
       const transformedData = json.results.map((movie) => ({
         title: movie.title,
@@ -28,11 +30,16 @@ export const useUpcomingMovieStore = defineStore('upcomingMovie', () => {
         id: movie.id
       }))
       upcomingMoviesInfoList.value = transformedData
-      console.log(upcomingMovies.value)
     } catch (err) {
       console.error('error:' + err)
     }
   }
 
-  return { upcomingMovies, upcomingMoviesInfoList, initUpcomingMovies, fiveElementsOfList }
+  return {
+    upcomingMovies,
+    upcomingMoviesInfoList,
+    initUpcomingMovies,
+    fiveElementsOfList,
+    upcomingMoviesDate
+  }
 })

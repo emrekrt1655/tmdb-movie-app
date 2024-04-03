@@ -13,6 +13,11 @@ const router = createRouter({
       name: 'trending',
       component: () => import('../views/TrendingView.vue'),
       props: (route) => ({ active: route.query.active || 'day' })
+    },
+    {
+      path: '/upcoming',
+      name: 'upcoming',
+      component: () => import('../views/UpcomingView.vue')
     }
   ]
 })
