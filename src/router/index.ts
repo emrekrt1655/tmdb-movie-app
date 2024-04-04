@@ -12,12 +12,22 @@ const router = createRouter({
       path: '/trending',
       name: 'trending',
       component: () => import('../views/TrendingView.vue'),
-      props: (route) => ({ active: route.query.active || 'day' })
+      props: (route) => ({ active: route.query.active || 'day', page: route.query.page || 1 })
     },
     {
       path: '/upcoming',
       name: 'upcoming',
       component: () => import('../views/UpcomingView.vue')
+    },
+    {
+      path: '/popular',
+      name: 'popular',
+      component: () => import('../views/PopularMoviesView.vue')
+    },
+    {
+      path: '/movie/:id',
+      name: 'movie-detail',
+      component: () => import('../views/MovieDetail.vue')
     }
   ]
 })

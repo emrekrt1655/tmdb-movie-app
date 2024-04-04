@@ -8,8 +8,8 @@ export const useMovieTrendingStore = defineStore('movieTrending', () => {
 
   const fiveElementsOfList = computed(() => trendingMoviesInfoList.value.slice(0, 5))
 
-  const gettingUrl = (time: string) => {
-    return `${import.meta.env.VITE_BASE_URL}/trending/movie/${time}?language=en-US`
+  const gettingUrl = (time: string, page: number) => {
+    return `${import.meta.env.VITE_BASE_URL}/trending/movie/${time}?language=en-USpage=${page}`
   }
 
   const options = {
@@ -20,8 +20,8 @@ export const useMovieTrendingStore = defineStore('movieTrending', () => {
     }
   }
 
-  const initTrendingMovies = async (time: string) => {
-    const url = gettingUrl(time)
+  const initTrendingMovies = async (time: string, page: number) => {
+    const url = gettingUrl(time, page)
     try {
       const res = await fetch(url, options)
       const json: PopularMovieResponse = await res.json()

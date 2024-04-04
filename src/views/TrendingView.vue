@@ -4,13 +4,18 @@ import { ref, defineEmits } from 'vue'
 import { useMovieTrendingStore } from '@/stores/movieTrending';
 
 const trendingStore = useMovieTrendingStore()
-const emit = defineEmits(['active-change']);
-const props = defineProps(['active'])
+const emit = defineEmits(['active-change', 'page-change']);
+const props = defineProps(['active', 'page'])
 
 
 const setActive = (value: string) => {
     emit('active-change', value)
 }
+const setPage = (value: number) => {
+    emit('page-change', value)
+}
+
+console.log(props.page)
 </script>
 
 <template>
@@ -23,11 +28,20 @@ const setActive = (value: string) => {
                 class="p-0.5 mr-3 border border-white">This Week</button>
         </div>
         <div class="ml-6">
-            <div class="mb-3 w-3/5" v-for=" (movie, index) in trendingStore.trendingMovies">
-                <MovieCard :movie="movie" :key="movie.id" :index="index + 1" :isName="true" class="mb-3" />
+            <div class="mb-3 w-3/5" v-for=" (movie, index) in trendingStore.trendingMovies" :key="movie.id">
+                <MovieCard :movie="movie" :index="index + 1" :isName="true" class="mb-3" />
                 <hr>
             </div>
-
+        </div>
+        <div class="flex justify-center mt-6 w-3/5">
+            <button @click="setPage(props.page - 1)" :disabled="props.page === 1"
+                class="px-3 py-1 text-white mr-2">Before</button>
+            <button v-for="pageNumber in 5" :key="pageNumber" @click="setPage(pageNumber)"
+                :class="{ 'bg-red-700': pageNumber === props.page }" class="px-3 py-1 text-white mr-2">{{
+                    pageNumber }}</button>
+            <button @click="setPage(props.page + 1)" :disabled="props.page === 5"
+                class="px-3 py-1  text-white mr-2">Next</button>
         </div>
     </div>
 </template>
+

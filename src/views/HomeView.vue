@@ -14,6 +14,6 @@ const popularMovieStore = useMoviePopularStore()
     <Search />
     <MovieList title="Trends in today" :trending="true" :trending-list="trendingStore?.fiveElementsOfList"
         link="trending" />
-    <MovieList title="Popular Movies" :trending-list="popularMovieStore?.fiveElementsOfList" link="trending" />
+    <MovieList title="Popular Movies" :trending-list="popularMovieStore?.fiveElementsOfList" link="popular" />
     <MovieList title="Upcoming Movies" :trending-list="upcomingMoviesStore?.fiveElementsOfList" link="upcoming" />
 </template>

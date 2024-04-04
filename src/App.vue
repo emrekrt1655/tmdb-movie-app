@@ -12,17 +12,19 @@ const movieUpcomingStore = useUpcomingMovieStore()
 
 onMounted(async () => {
   await moviePopularStore.initPopularMovies()
-  await movieTrendingStore.initTrendingMovies(active.value)
+  await movieTrendingStore.initTrendingMovies(active.value, page.value)
   await movieUpcomingStore.initUpcomingMovies()
 })
 
 import { ref } from 'vue'
 
 const active = ref('day')
+const page = ref(1)
 
-const onActiveChange = (value: string) => {
-  active.value = value
-  movieTrendingStore.initTrendingMovies(value)
+const onActiveorPageChange = (newValue: string, newPage: number) => {
+  active.value = newValue
+  page.value = newPage
+  movieTrendingStore.initTrendingMovies(newValue, newPage)
 }
 
 </script>
@@ -31,7 +33,7 @@ const onActiveChange = (value: string) => {
 
   <div class="">
 
-    <RouterView :active="active" @active-change="onActiveChange" />
+    <RouterView :active="active" :page="page" @active-change="onActiveorPageChange" @page-change="onActiveorPageChange" />
 
   </div>
 </template>
