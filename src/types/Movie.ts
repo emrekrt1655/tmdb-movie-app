@@ -90,3 +90,8 @@ export interface MovieResponse {
   vote_average: number
   vote_count: number
 }
+
+export interface SearchResult {
+  id: number
+  name: string
+}

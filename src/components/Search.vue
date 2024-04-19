@@ -4,20 +4,32 @@
             :style="{
                 backgroundImage: `url(${baseUrl}${moviePopularStore.popularMoviesInfoList[randomNumber]?.backdrop_path})`
             }">
-            <input class="search-input h-16 w-1/2 text-lg" type="text" placeholder="Search..." />
+            <input v-model="searchMovieStore.searchInput" @input="handleInput" class="search-input h-16 w-1/2 text-lg"
+                type="text" placeholder="Search..." />
             <p class="movie-info mt-6 text-white font-bold text-lg">
                 The Movie in the Picture: <strong class="font-black">{{
                     moviePopularStore.popularMoviesInfoList[randomNumber]?.title
                 }} </strong>
             </p>
+            <ul class="search-results mt-6 text-white w-1/2 bg-gray-800 rounded-lg overflow-hidden">
+                <li v-for="(movie, index) in searchMovieStore.fiveElementsOfList" :key="movie.id"
+                    class="px-4 py-2 border-b border-gray-700 cursor-pointer">
+                    <RouterLink :to="`/movie/${movie.id}`"> {{ index + 1 }}. {{ movie.name }} </RouterLink>
+                </li>
+            </ul>
         </div>
     </div>
 </template>
 
 <script setup lang="ts">
 import { useMoviePopularStore } from '@/stores/moviePopular'
+import { useSearchMovieStore } from '@/stores/search'
 const moviePopularStore = useMoviePopularStore()
+const searchMovieStore = useSearchMovieStore()
 const baseUrl = import.meta.env.VITE_BASE_IMAGE_URL
+const handleInput = () => {
+    searchMovieStore.initSearchMovies()
+};
 
 const randomNumber = Math.floor(Math.random() * 20)
 </script>
@@ -35,4 +47,3 @@ const randomNumber = Math.floor(Math.random() * 20)
     opacity: 1;
 }
 </style>
-@/stores/moviePopular

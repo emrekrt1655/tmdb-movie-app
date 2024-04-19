@@ -13,8 +13,9 @@
                 <h1>
                     Similar Movies
                 </h1>
-                <div class="w-1/2" v-for="simMov, index in similarMovies" :key="simMov.id">
-                    <RouterLink :to="simMov ? `/movie/${simMov.id}` : ''" class="block">
+                <div class="w-1/2" v-if="similarMovies && similarMovies.length > 0">
+                    <RouterLink v-for="simMov, index in similarMovies" :key="simMov.id"
+                        :to="simMov ? `/movie/${simMov.id}` : ''" class="block">
                         <div class="border rounded-lg p-4 mb-4 flex items-start">
                             <div class="rounded-full bg-red-700 p-2 mr-4 text-white">{{ index + 1 }}</div>
                             <div>
@@ -23,8 +24,9 @@
                             </div>
                         </div>
                     </RouterLink>
-
-
+                </div>
+                <div v-else>
+                    <p>No similar movies found.</p>
                 </div>
             </div>
             <div class="details-right flex flex-col flex-1.5 ml-6">
@@ -34,8 +36,7 @@
                 <p><strong>Production Companies:</strong> {{ getProductionCompanies(movie.production_companies) }}</p>
                 <p><strong>Original Language:</strong> {{ movie.original_language }}</p>
                 <p><strong>IMDB ID:</strong> <a :href="'https://www.imdb.com/title/' + movie.imdb_id">{{ movie.imdb_id
-                }}</a>
-                </p>
+                }}</a></p>
                 <p><strong>Homepage:</strong> <a :href="movie.homepage">{{ movie.title }} Official Website</a></p>
                 <p><strong>Vote Average:</strong> {{ movie.vote_average }}</p>
                 <p><strong>Vote Count:</strong> {{ movie.vote_count }}</p>
@@ -47,6 +48,7 @@
         <p>Loading...</p>
     </div>
 </template>
+
   
 <script setup lang="ts">
 import type { MovieResponse, PopularMovie } from '@/types/Movie';
