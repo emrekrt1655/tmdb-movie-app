@@ -1,5 +1,5 @@
 <template>
-    <div class="search-movie w-full h-96 mt-6">
+    <div class="search-movie w-full h-96 mt-6 relative">
         <div class="image-box w-4/5 h-96 m-auto flex flex-col justify-center items-center bg-no-repeat bg-cover grayscale"
             :style="{
                 backgroundImage: `url(${baseUrl}${moviePopularStore.popularMoviesInfoList[randomNumber]?.backdrop_path})`
@@ -11,7 +11,8 @@
                     moviePopularStore.popularMoviesInfoList[randomNumber]?.title
                 }} </strong>
             </p>
-            <ul class="search-results mt-6 text-white w-1/2 bg-gray-800 rounded-lg overflow-hidden">
+            <ul
+                class="search-results mt-2 top-1/2 text-white w-1/2 bg-gray-800 rounded-lg overflow-hidden absolute left-1/2 transform -translate-x-1/2 z-10">
                 <li v-for="(movie, index) in searchMovieStore.fiveElementsOfList" :key="movie.id"
                     class="px-4 py-2 border-b border-gray-700 cursor-pointer">
                     <RouterLink :to="`/movie/${movie.id}`"> {{ index + 1 }}. {{ movie.name }} </RouterLink>
