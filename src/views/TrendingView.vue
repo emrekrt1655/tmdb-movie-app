@@ -22,10 +22,10 @@ console.log(props.page)
     <div class="w-full h-full mt-6 text-white container mx-auto w-4/5">
         <h1 class="ml-6 mb-6 text-3xl">Trends</h1>
         <div class="ml-6 mb-6">
-            <button @click="setActive('day')" :class="{ 'bg-red-700': props.active === 'day' }"
-                class="p-0.5 mr-3 border border-white">Today</button>
-            <button @click="setActive('week')" :class="{ 'bg-red-700': props.active === 'week' }"
-                class="p-0.5 mr-3 border border-white">This Week</button>
+            <button @click="setActive('day')" :class="{ 'bg-red-700 active': props.active === 'day' }"
+                class="trend p-0.5 mr-3 border border-white">Today</button>
+            <button @click="setActive('week')" :class="{ 'bg-red-700 active': props.active === 'week' }"
+                class="trend p-0.5 mr-3 border border-white">This Week</button>
         </div>
         <div class="ml-6">
             <div class="mb-3 w-3/5" v-for=" (movie, index) in trendingStore.trendingMovies" :key="movie.id">
