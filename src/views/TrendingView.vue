@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import MovieCard from '@/components/MovieCard.vue'
-import { ref, defineEmits } from 'vue'
+import { ref } from 'vue'
 import { useMovieTrendingStore } from '@/stores/movieTrending';
 
 const trendingStore = useMovieTrendingStore()
@@ -11,11 +11,8 @@ const props = defineProps(['active', 'page'])
 const setActive = (value: string) => {
     emit('active-change', value)
 }
-const setPage = (value: number) => {
-    emit('page-change', value)
-}
 
-console.log(props.page)
+
 </script>
 
 <template>
@@ -32,15 +29,6 @@ console.log(props.page)
                 <MovieCard :movie="movie" :index="index + 1" :isName="true" class="mb-3" />
                 <hr>
             </div>
-        </div>
-        <div class="flex justify-center mt-6 w-3/5">
-            <button @click="setPage(props.page - 1)" :disabled="props.page === 1"
-                class="px-3 py-1 text-white mr-2">Before</button>
-            <button v-for="pageNumber in 5" :key="pageNumber" @click="setPage(pageNumber)"
-                :class="{ 'bg-red-700': pageNumber === props.page }" class="px-3 py-1 text-white mr-2">{{
-                    pageNumber }}</button>
-            <button @click="setPage(props.page + 1)" :disabled="props.page === 5"
-                class="px-3 py-1  text-white mr-2">Next</button>
         </div>
     </div>
 </template>

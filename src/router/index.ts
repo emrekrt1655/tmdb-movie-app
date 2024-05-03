@@ -6,23 +6,26 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: () => import('../views/HomeView.vue')
+      component: () => import('../views/HomeView.vue'),
+      props: (route) => ({ page: route.query.page || 1 })
     },
     {
       path: '/trending',
       name: 'trending',
       component: () => import('../views/TrendingView.vue'),
-      props: (route) => ({ active: route.query.active || 'day', page: route.query.page || 1 })
+      props: (route) => ({ active: route.query.active || 'day' })
     },
     {
-      path: '/upcoming',
+      path: '/upcoming/:page',
       name: 'upcoming',
-      component: () => import('../views/UpcomingView.vue')
+      component: () => import('../views/UpcomingView.vue'),
+      props: (route) => ({ page: route.query.page || 1 })
     },
     {
-      path: '/popular',
+      path: '/popular/:page',
       name: 'popular',
-      component: () => import('../views/PopularMoviesView.vue')
+      component: () => import('../views/PopularMoviesView.vue'),
+      props: (route) => ({ page: route.query.page || 1 })
     },
     {
       path: '/movie/:id',

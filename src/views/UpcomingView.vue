@@ -3,6 +3,12 @@ import MovieCard from '@/components/MovieCard.vue'
 import { useUpcomingMovieStore } from '@/stores/upcomingMovies';
 
 const upcomingStore = useUpcomingMovieStore()
+const emit = defineEmits(['page-change']);
+const props = defineProps(['page'])
+
+const setPage = (value: number) => {
+    emit('page-change', value)
+}
 
 const minimumDate = upcomingStore.upcomingMoviesDate?.minimum
 const maximumDate = upcomingStore.upcomingMoviesDate?.maximum
@@ -35,6 +41,15 @@ console.log(formattedMinimumDate)
                 <hr>
             </div>
 
+        </div>
+        <div class="flex justify-center mt-6 w-3/5">
+            <button @click="setPage(props.page - 1)" :disabled="props.page === 1"
+                class="px-3 py-1 text-white mr-2">Before</button>
+            <button v-for="pageNumber in 5" :key="pageNumber" @click="setPage(pageNumber)"
+                :class="{ 'bg-red-700': pageNumber === props.page }" class="px-3 py-1 text-white mr-2">{{
+                    pageNumber }}</button>
+            <button @click="setPage(props.page + 1)" :disabled="props.page === 5"
+                class="px-3 py-1  text-white mr-2">Next</button>
         </div>
     </div>
 </template>

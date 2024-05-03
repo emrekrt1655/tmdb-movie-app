@@ -8,7 +8,9 @@ export const useMoviePopularStore = defineStore('moviePopular', () => {
 
   const fiveElementsOfList = computed(() => popularMovies.value.slice(0, 5))
 
-  const url = `${import.meta.env.VITE_BASE_URL}movie/popular?language=en-US&page=1`
+  const gettingUrl = (page: number) => {
+    return `${import.meta.env.VITE_BASE_URL}/movie/popular?language=en-USpage=${page}`
+  }
   const options = {
     method: 'GET',
     headers: {
@@ -17,8 +19,9 @@ export const useMoviePopularStore = defineStore('moviePopular', () => {
     }
   }
 
-  const initPopularMovies = async () => {
+  const initPopularMovies = async (page: number) => {
     try {
+      const url = gettingUrl(page)
       const res = await fetch(url, options)
       const json: PopularMovieResponse = await res.json()
       popularMovies.value = json.results

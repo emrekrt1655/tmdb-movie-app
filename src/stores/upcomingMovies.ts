@@ -9,7 +9,9 @@ export const useUpcomingMovieStore = defineStore('upcomingMovie', () => {
 
   const fiveElementsOfList = computed(() => upcomingMoviesInfoList.value.slice(0, 5))
 
-  const url = `${import.meta.env.VITE_BASE_URL}/movie/upcoming?language=en-US&page=1`
+  const gettingUrl = (page: number) => {
+    return `${import.meta.env.VITE_BASE_URL}/movie/upcoming?language=en-US&page=1`
+  }
   const options = {
     method: 'GET',
     headers: {
@@ -18,8 +20,9 @@ export const useUpcomingMovieStore = defineStore('upcomingMovie', () => {
     }
   }
 
-  const initUpcomingMovies = async () => {
+  const initUpcomingMovies = async (page: number) => {
     try {
+      const url = gettingUrl(page)
       const res = await fetch(url, options)
       const json: UpcomingMovieResponse = await res.json()
       upcomingMoviesDate.value = json.dates

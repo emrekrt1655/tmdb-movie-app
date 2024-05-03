@@ -5,11 +5,18 @@ import { ref, computed } from 'vue';
 
 const popularStore = useMoviePopularStore();
 const filterText = ref('');
+const emit = defineEmits(['page-change']);
+const props = defineProps(['page'])
+
+
 
 const filteredMovies = computed(() => {
     const filterLowerCase = filterText.value.toLowerCase();
     return popularStore.popularMovies.filter(movie => movie.title.toLowerCase().includes(filterLowerCase));
 });
+const setPage = (value: number) => {
+    emit('page-change', value)
+}
 </script>
 
 <template>
@@ -24,6 +31,15 @@ const filteredMovies = computed(() => {
                 <MovieCard :movie="movie" :index="index + 1" :isName="true" class="mb-3" />
                 <hr>
             </div>
+        </div>
+        <div class="flex justify-center mt-6 w-3/5">
+            <button @click="setPage(props.page - 1)" :disabled="props.page === 1"
+                class="px-3 py-1 text-white mr-2">Before</button>
+            <button v-for="pageNumber in 5" :key="pageNumber" @click="setPage(pageNumber)"
+                :class="{ 'bg-red-700': pageNumber === props.page }" class="px-3 py-1 text-white mr-2">{{
+                    pageNumber }}</button>
+            <button @click="setPage(props.page + 1)" :disabled="props.page === 5"
+                class="px-3 py-1  text-white mr-2">Next</button>
         </div>
     </div>
 </template>

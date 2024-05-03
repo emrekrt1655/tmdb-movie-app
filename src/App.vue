@@ -5,15 +5,18 @@ import { useMoviePopularStore } from '@/stores/moviePopular';
 import { useMovieTrendingStore } from '@/stores/movieTrending';
 import { onMounted } from 'vue';
 import { useUpcomingMovieStore } from './stores/upcomingMovies';
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
 
 const moviePopularStore = useMoviePopularStore()
 const movieTrendingStore = useMovieTrendingStore()
 const movieUpcomingStore = useUpcomingMovieStore()
 
 onMounted(async () => {
-  await moviePopularStore.initPopularMovies()
-  await movieTrendingStore.initTrendingMovies(active.value, page.value)
-  await movieUpcomingStore.initUpcomingMovies()
+  await moviePopularStore.initPopularMovies(page.value)
+  await movieTrendingStore.initTrendingMovies(active.value)
+  await movieUpcomingStore.initUpcomingMovies(page.value)
 })
 
 import { ref } from 'vue'
@@ -21,10 +24,19 @@ import { ref } from 'vue'
 const active = ref('day')
 const page = ref(1)
 
-const onActiveorPageChange = (newValue: string, newPage: number) => {
+const onActiveChange = (newValue: string) => {
   active.value = newValue
+  movieTrendingStore.initTrendingMovies(newValue)
+  router.push({ query: { time: newValue } });
+}
+
+const onPageChange = (newPage: number) => {
+  console.log(newPage)
   page.value = newPage
-  movieTrendingStore.initTrendingMovies(newValue, newPage)
+  movieTrendingStore.initTrendingMovies(active.value)
+  moviePopularStore.initPopularMovies(newPage)
+  router.push({ params: { page: newPage } });
+
 }
 
 </script>
@@ -33,7 +45,7 @@ const onActiveorPageChange = (newValue: string, newPage: number) => {
 
   <div class="">
 
-    <RouterView :active="active" :page="page" @active-change="onActiveorPageChange" @page-change="onActiveorPageChange" />
+    <RouterView :active="active" :page="page" @active-change="onActiveChange" @page-change="onPageChange" />
 
   </div>
 </template>
