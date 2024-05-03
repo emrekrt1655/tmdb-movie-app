@@ -9,14 +9,25 @@ const maximumDate = upcomingStore.upcomingMoviesDate?.maximum
 
 const formattedMinimumDate = minimumDate && new Date(minimumDate).toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
 const formattedMaximumDate = maximumDate && new Date(maximumDate).toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+console.log(formattedMinimumDate)
 </script>
 
 <template>
     <div class="w-full h-full mt-6 text-white container mx-auto w-4/5">
         <h1 class="ml-6 mb-6 text-3xl">Upcoming Movies</h1>
         <div class="ml-6 mb-6">
-            <p class="text-red-600">From <strong>{{ formattedMinimumDate }}</strong> to <strong>{{ formattedMaximumDate
-            }}</strong></p>
+            <p class="text-red-600">From
+                <strong class="date1">{{ upcomingStore.upcomingMoviesDate?.minimum && new
+                    Date(upcomingStore.upcomingMoviesDate?.minimum).toLocaleDateString('en-US', {
+                        weekday: 'long', year:
+                            'numeric', month: 'long', day: 'numeric'
+                    }) }}</strong> to
+                <strong class="date">{{ upcomingStore.upcomingMoviesDate?.maximum && new
+                    Date(upcomingStore.upcomingMoviesDate?.maximum).toLocaleDateString('en-US', {
+                        weekday: 'long', year:
+                            'numeric', month: 'long', day: 'numeric'
+                    }) }}</strong>
+            </p>
         </div>
         <div class="ml-6">
             <div class="mb-3 w-3/5" v-for=" (movie, index) in upcomingStore.upcomingMovies">
