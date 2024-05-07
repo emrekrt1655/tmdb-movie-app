@@ -9,7 +9,7 @@ export const useMoviePopularStore = defineStore('moviePopular', () => {
   const fiveElementsOfList = computed(() => popularMovies.value.slice(0, 5))
 
   const gettingUrl = (page: number) => {
-    return `${import.meta.env.VITE_BASE_URL}/movie/popular?language=en-USpage=${page}`
+    return `${import.meta.env.VITE_BASE_URL}movie/popular?language=en-US&page=${page}`
   }
   const options = {
     method: 'GET',

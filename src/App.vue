@@ -31,10 +31,10 @@ const onActiveChange = (newValue: string) => {
 }
 
 const onPageChange = (newPage: number) => {
-  console.log(newPage)
   page.value = newPage
   movieTrendingStore.initTrendingMovies(active.value)
-  moviePopularStore.initPopularMovies(newPage)
+  moviePopularStore.initPopularMovies(page.value)
+  movieUpcomingStore.initUpcomingMovies(page.value)
   router.push({ params: { page: newPage } });
 
 }

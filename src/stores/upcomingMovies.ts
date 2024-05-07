@@ -10,7 +10,7 @@ export const useUpcomingMovieStore = defineStore('upcomingMovie', () => {
   const fiveElementsOfList = computed(() => upcomingMoviesInfoList.value.slice(0, 5))
 
   const gettingUrl = (page: number) => {
-    return `${import.meta.env.VITE_BASE_URL}/movie/upcoming?language=en-US&page=1`
+    return `${import.meta.env.VITE_BASE_URL}movie/upcoming?language=en-US&page=${page}`
   }
   const options = {
     method: 'GET',

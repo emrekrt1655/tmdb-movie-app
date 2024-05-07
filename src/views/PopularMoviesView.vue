@@ -8,8 +8,6 @@ const filterText = ref('');
 const emit = defineEmits(['page-change']);
 const props = defineProps(['page'])
 
-
-
 const filteredMovies = computed(() => {
     const filterLowerCase = filterText.value.toLowerCase();
     return popularStore.popularMovies.filter(movie => movie.title.toLowerCase().includes(filterLowerCase));
@@ -43,5 +41,3 @@ const setPage = (value: number) => {
         </div>
     </div>
 </template>
-
-

@@ -9,13 +9,6 @@ const props = defineProps(['page'])
 const setPage = (value: number) => {
     emit('page-change', value)
 }
-
-const minimumDate = upcomingStore.upcomingMoviesDate?.minimum
-const maximumDate = upcomingStore.upcomingMoviesDate?.maximum
-
-const formattedMinimumDate = minimumDate && new Date(minimumDate).toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
-const formattedMaximumDate = maximumDate && new Date(maximumDate).toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
-console.log(formattedMinimumDate)
 </script>
 
 <template>
