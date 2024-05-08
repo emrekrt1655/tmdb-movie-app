@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import MovieCard from '@/components/MovieCard.vue'
-import { ref } from 'vue'
 import { useMovieTrendingStore } from '@/stores/movieTrending';
 
 const trendingStore = useMovieTrendingStore()

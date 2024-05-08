@@ -3,7 +3,7 @@ import Navbar from '@/components/Navbar.vue'
 
 import { useMoviePopularStore } from '@/stores/moviePopular';
 import { useMovieTrendingStore } from '@/stores/movieTrending';
-import { onMounted } from 'vue';
+import { onMounted, watch } from 'vue';
 import { useUpcomingMovieStore } from './stores/upcomingMovies';
 import { useRouter } from 'vue-router';
 
@@ -38,6 +38,10 @@ const onPageChange = (newPage: number) => {
   router.push({ params: { page: newPage } });
 
 }
+watch(() => router.currentRoute.value.params.page, (newValue) => {
+  page.value = +newValue || 1
+  onPageChange(page.value)
+});
 
 </script>
 <template>

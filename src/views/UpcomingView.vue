@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import MovieCard from '@/components/MovieCard.vue'
 import { useUpcomingMovieStore } from '@/stores/upcomingMovies';
-
+import { useRoute } from 'vue-router';
 const upcomingStore = useUpcomingMovieStore()
 const emit = defineEmits(['page-change']);
 const props = defineProps(['page'])
-
+const route = useRoute()
 const setPage = (value: number) => {
     emit('page-change', value)
 }

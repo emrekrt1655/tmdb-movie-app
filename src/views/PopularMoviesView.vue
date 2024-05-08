@@ -2,11 +2,10 @@
 import MovieCard from '@/components/MovieCard.vue'
 import { useMoviePopularStore } from '@/stores/moviePopular';
 import { ref, computed } from 'vue';
-
+const props = defineProps(['page'])
 const popularStore = useMoviePopularStore();
 const filterText = ref('');
 const emit = defineEmits(['page-change']);
-const props = defineProps(['page'])
 
 const filteredMovies = computed(() => {
     const filterLowerCase = filterText.value.toLowerCase();
