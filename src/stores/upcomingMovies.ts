@@ -6,6 +6,8 @@ export const useUpcomingMovieStore = defineStore('upcomingMovie', () => {
   const upcomingMovies = ref<PopularMovie[]>([])
   const upcomingMoviesDate = ref<{ maximum: string; minimum: string }>()
   const upcomingMoviesInfoList = ref<PopularMoviesInfo[]>([])
+  const totalPages = ref<number>(0)
+  const currentPage = ref<number>(1)
 
   const fiveElementsOfList = computed(() => upcomingMoviesInfoList.value.slice(0, 5))
 
@@ -27,6 +29,9 @@ export const useUpcomingMovieStore = defineStore('upcomingMovie', () => {
       const json: UpcomingMovieResponse = await res.json()
       upcomingMoviesDate.value = json.dates
       upcomingMovies.value = json.results
+      totalPages.value = json.total_pages
+      currentPage.value = json.page
+
       const transformedData = json.results.map((movie) => ({
         title: movie.title,
         backdrop_path: movie.backdrop_path,
@@ -43,6 +48,8 @@ export const useUpcomingMovieStore = defineStore('upcomingMovie', () => {
     upcomingMoviesInfoList,
     initUpcomingMovies,
     fiveElementsOfList,
-    upcomingMoviesDate
+    upcomingMoviesDate,
+    totalPages,
+    currentPage
   }
 })

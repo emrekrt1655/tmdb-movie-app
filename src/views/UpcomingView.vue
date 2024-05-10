@@ -1,14 +1,37 @@
 <script setup lang="ts">
 import MovieCard from '@/components/MovieCard.vue'
 import { useUpcomingMovieStore } from '@/stores/upcomingMovies';
-import { useRoute } from 'vue-router';
+import { computed } from 'vue';
 const upcomingStore = useUpcomingMovieStore()
 const emit = defineEmits(['page-change']);
-const props = defineProps(['page'])
-const route = useRoute()
 const setPage = (value: number) => {
     emit('page-change', value)
 }
+
+const pageNumbers = computed(() => {
+    const currentPage = upcomingStore.currentPage
+    const totalPages = upcomingStore.totalPages
+    const maxPageButtons = 5;
+
+    if (totalPages <= maxPageButtons) {
+        return Array.from({ length: totalPages }, (_, i) => i + 1);
+    } else {
+        const halfMaxButtons = Math.floor(maxPageButtons / 2);
+        const firstPage = Math.max(1, currentPage - halfMaxButtons)
+        const lastPage = Math.min(totalPages, currentPage + halfMaxButtons)
+
+
+        if (currentPage <= halfMaxButtons) {
+            return Array.from({ length: maxPageButtons }, (_, i) => i + 1);
+        } else if (currentPage >= totalPages - halfMaxButtons) {
+            return Array.from({ length: maxPageButtons }, (_, i) => totalPages - maxPageButtons + i + 1);
+        } else {
+            return Array.from({ length: maxPageButtons }, (_, i) => firstPage + i);
+        }
+    }
+
+})
+
 </script>
 
 <template>
@@ -36,12 +59,13 @@ const setPage = (value: number) => {
 
         </div>
         <div class="flex justify-center mt-6 w-3/5">
-            <button @click="setPage(props.page - 1)" :disabled="props.page === 1"
+            <button @click="setPage(upcomingStore.currentPage - 1)" :disabled="upcomingStore.currentPage === 1"
                 class="px-3 py-1 text-white mr-2">Before</button>
-            <button v-for="pageNumber in 5" :key="pageNumber" @click="setPage(pageNumber)"
-                :class="{ 'bg-red-700': pageNumber === props.page }" class="px-3 py-1 text-white mr-2">{{
+            <button v-for="pageNumber in pageNumbers" :key="pageNumber" @click="setPage(pageNumber)"
+                :class="{ 'bg-red-700': pageNumber === upcomingStore.currentPage }" class="px-3 py-1 text-white mr-2">{{
                     pageNumber }}</button>
-            <button @click="setPage(props.page + 1)" :disabled="props.page === 5"
+            <button @click="setPage(upcomingStore.currentPage + 1)"
+                :disabled="upcomingStore.currentPage === upcomingStore.totalPages"
                 class="px-3 py-1  text-white mr-2">Next</button>
         </div>
     </div>

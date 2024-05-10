@@ -18,6 +18,7 @@ export interface PopularMovie {
 export interface PopularMovieResponse {
   page: number
   results: PopularMovie[]
+  total_pages: number
 }
 
 export interface PopularMoviesInfo {
