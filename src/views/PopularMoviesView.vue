@@ -31,7 +31,6 @@ import { ref, computed } from 'vue';
 const popularStore = useMoviePopularStore();
 const filterText = ref('');
 const emit = defineEmits(['page-change']);
-
 const filteredMovies = computed(() => {
     const filterLowerCase = filterText.value.toLowerCase();
     return popularStore.popularMovies.filter(movie => movie.title.toLowerCase().includes(filterLowerCase));
