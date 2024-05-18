@@ -9,11 +9,11 @@ export const useGenreStore = defineStore('genres', () => {
   const moviesInfoList = ref<PopularMoviesInfo[]>([])
 
   const url = 'https://api.themoviedb.org/3/genre/movie/list?language=en'
-  const gettingUrlwithGenreId = (genreId: number) => {
+  const gettingUrlwithGenreId = (genreId: number, page: number) => {
     const url =
       genreId === 0
         ? `${import.meta.env.VITE_BASE_URL}discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc`
-        : `${import.meta.env.VITE_BASE_URL}discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc&with_genres=${genreId}`
+        : `${import.meta.env.VITE_BASE_URL}discover/movie?include_adult=false&include_video=false&language=en-US&page=${page}&sort_by=popularity.desc&with_genres=${genreId}`
 
     return url
   }
@@ -35,9 +35,9 @@ export const useGenreStore = defineStore('genres', () => {
       console.error('error:' + err)
     }
   }
-  const genreMoviesList = async (genreId: number) => {
+  const genreMoviesList = async (genreId: number, page: number) => {
     try {
-      const url = gettingUrlwithGenreId(genreId)
+      const url = gettingUrlwithGenreId(genreId, page)
       const res = await fetch(url, options)
       const json: PopularMovieResponse = await res.json()
       movies.value = json.results

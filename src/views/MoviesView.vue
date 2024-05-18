@@ -4,7 +4,7 @@
         <div class="ml-6 mb-6">
             <select v-model="selectedGenre" class="text-black border border-gray-300 rounded-md px-3 py-2 w-1/5 mr-6">
                 <option :value="0">All Genres</option>
-                <option v-for="genre in genres" :key="genre.id" :value="genre.id">{{ genre.name }}</option>
+                <option v-for="genre in genreStore.genres" :key="genre.id" :value="genre.id">{{ genre.name }}</option>
             </select>
             <input v-model="searchInput" @input="searchMovie" placeholder="Search movies"
                 class="text-black border border-gray-300 rounded-md w-1/5  px-3 py-2">
@@ -28,20 +28,20 @@ import { onMounted, ref, watch } from 'vue';
 const genreStore = useGenreStore();
 const searchMovieStore = useSearchMovieStore();
 const selectedGenre = ref<number>(0)
-const genres = genreStore.genres;
+const pageGenre = ref<number>(1)
+const pageSearch = ref<number>(1)
 const searchInput = ref('')
 const searchMovie = () => {
-    searchMovieStore.initSearchMovies(searchInput.value)
+    searchMovieStore.initSearchMovies(searchInput.value, pageSearch.value)
 };
 
 onMounted(async () => {
     await genreStore.initGenres();
-    await genreStore.genreMoviesList(selectedGenre.value)
+    await genreStore.genreMoviesList(selectedGenre.value, pageGenre.value)
 });
 watch(selectedGenre, async (newValue) => {
     selectedGenre.value = newValue
-    await genreStore.genreMoviesList(selectedGenre.value);
+    await genreStore.genreMoviesList(selectedGenre.value, pageGenre.value);
 });
-console.log(searchMovieStore.searchMovies)
 </script>
   

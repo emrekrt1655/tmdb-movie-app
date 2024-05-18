@@ -31,9 +31,10 @@ import { ref } from 'vue';
 const moviePopularStore = useMoviePopularStore()
 const searchMovieStore = useSearchMovieStore()
 const searchInput = ref('')
+const page = ref(1)
 const baseUrl = import.meta.env.VITE_BASE_IMAGE_URL
 const handleInput = () => {
-    searchMovieStore.initSearchMovies(searchInput.value)
+    searchMovieStore.initSearchMovies(searchInput.value, page.value)
 };
 
 const randomNumber = Math.floor(Math.random() * 20)
