@@ -1,37 +1,8 @@
 <script setup lang="ts">
 import MovieCard from '@/components/MovieCard.vue'
 import { useUpcomingMovieStore } from '@/stores/upcomingMovies';
-import { computed } from 'vue';
+import Pagination from '@/components/Pagination.vue'
 const upcomingStore = useUpcomingMovieStore()
-const emit = defineEmits(['page-change']);
-const setPage = (value: number) => {
-    emit('page-change', value)
-}
-
-const pageNumbers = computed(() => {
-    const currentPage = upcomingStore.currentPage
-    const totalPages = upcomingStore.totalPages
-    const maxPageButtons = 5;
-
-    if (totalPages <= maxPageButtons) {
-        return Array.from({ length: totalPages }, (_, i) => i + 1);
-    } else {
-        const halfMaxButtons = Math.floor(maxPageButtons / 2);
-        const firstPage = Math.max(1, currentPage - halfMaxButtons)
-        const lastPage = Math.min(totalPages, currentPage + halfMaxButtons)
-
-
-        if (currentPage <= halfMaxButtons) {
-            return Array.from({ length: maxPageButtons }, (_, i) => i + 1);
-        } else if (currentPage >= totalPages - halfMaxButtons) {
-            return Array.from({ length: maxPageButtons }, (_, i) => totalPages - maxPageButtons + i + 1);
-        } else {
-            return Array.from({ length: maxPageButtons }, (_, i) => firstPage + i);
-        }
-    }
-
-})
-
 </script>
 
 <template>
@@ -56,17 +27,7 @@ const pageNumbers = computed(() => {
                 <MovieCard :movie="movie" :key="movie.id" :index="index + 1" :isName="true" class="mb-3" />
                 <hr>
             </div>
-
         </div>
-        <div class="flex justify-center mt-6 w-3/5">
-            <button @click="setPage(upcomingStore.currentPage - 1)" :disabled="upcomingStore.currentPage === 1"
-                class="px-3 py-1 text-white mr-2">Before</button>
-            <button v-for="pageNumber in pageNumbers" :key="pageNumber" @click="setPage(pageNumber)"
-                :class="{ 'bg-red-700': pageNumber === upcomingStore.currentPage }" class="px-3 py-1 text-white mr-2">{{
-                    pageNumber }}</button>
-            <button @click="setPage(upcomingStore.currentPage + 1)"
-                :disabled="upcomingStore.currentPage === upcomingStore.totalPages"
-                class="px-3 py-1  text-white mr-2">Next</button>
-        </div>
+        <Pagination :totalPages="upcomingStore.totalPages" :currentPage="upcomingStore.currentPage" />
     </div>
 </template>
