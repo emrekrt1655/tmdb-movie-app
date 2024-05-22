@@ -18,11 +18,17 @@
 <script setup lang="ts">
 import MovieCard from '@/components/MovieCard.vue'
 import Pagination from '@/components/Pagination.vue'
+import router from '@/router';
 import { useMoviePopularStore } from '@/stores/moviePopular';
-import { ref, computed } from 'vue';
+import { ref, computed, watch } from 'vue';
+
+watch(() => router.currentRoute.value.params.page, async (newValue) => {
+    await popularStore.initPopularMovies(+newValue)
+    router.push({ params: { page: +newValue } });
+})
+
 const popularStore = useMoviePopularStore();
 const filterText = ref('');
-const emit = defineEmits(['page-change']);
 const filteredMovies = computed(() => {
     const filterLowerCase = filterText.value.toLowerCase();
     return popularStore.popularMovies.filter(movie => movie.title.toLowerCase().includes(filterLowerCase));

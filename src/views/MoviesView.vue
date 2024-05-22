@@ -47,7 +47,7 @@ watch(() => router.currentRoute.value.params.page, async (newValue) => {
 onMounted(async () => {
     await genreStore.initGenres();
     await genreStore.genreMoviesList(selectedGenre.value, genrePage.value)
-    console.log(genreStore.totalPages, genreStore.currentPage)
+
 });
 watch(selectedGenre, async (newValue) => {
     selectedGenre.value = newValue
