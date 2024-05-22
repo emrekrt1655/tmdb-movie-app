@@ -36,8 +36,8 @@ const onPageChange = (newPage: number) => {
   moviePopularStore.initPopularMovies(page.value)
   movieUpcomingStore.initUpcomingMovies(page.value)
   router.push({ params: { page: newPage } });
-
 }
+
 watch(() => router.currentRoute.value.params.page, (newValue) => {
   page.value = +newValue || 1
   onPageChange(page.value)
@@ -45,7 +45,7 @@ watch(() => router.currentRoute.value.params.page, (newValue) => {
 
 </script>
 <template>
-  <Navbar />
+  <Navbar :page="page" />
 
   <div class="">
 

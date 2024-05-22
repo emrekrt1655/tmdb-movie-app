@@ -16,32 +16,42 @@
                 <MovieCard :isMovies="true" :movie="movie" :index="index + 1" class="mb-3" />
             </div>
         </div>
+        <Pagination :currentPage="genreStore.currentPage" :totalPages="genreStore.totalPages" />
     </div>
 </template>
   
 <script setup lang="ts">
 import MovieCard from '@/components/MovieCard.vue';
+import Pagination from '@/components/Pagination.vue';
 import { useGenreStore } from '@/stores/genres';
 import { useSearchMovieStore } from '@/stores/search';
 import { onMounted, ref, watch } from 'vue';
-
+import { useRouter } from 'vue-router';
+const router = useRouter();
 const genreStore = useGenreStore();
 const searchMovieStore = useSearchMovieStore();
 const selectedGenre = ref<number>(0)
-const pageGenre = ref<number>(1)
+const genrePage = ref<number>(1)
 const pageSearch = ref<number>(1)
 const searchInput = ref('')
 const searchMovie = () => {
     searchMovieStore.initSearchMovies(searchInput.value, pageSearch.value)
 };
 
+watch(() => router.currentRoute.value.params.page, async (newValue) => {
+    genrePage.value = +newValue || 1
+    await genreStore.genreMoviesList(selectedGenre.value, genrePage.value);
+    router.push({ params: { page: genrePage.value } });
+});
+
 onMounted(async () => {
     await genreStore.initGenres();
-    await genreStore.genreMoviesList(selectedGenre.value, pageGenre.value)
+    await genreStore.genreMoviesList(selectedGenre.value, genrePage.value)
+    console.log(genreStore.totalPages, genreStore.currentPage)
 });
 watch(selectedGenre, async (newValue) => {
     selectedGenre.value = newValue
-    await genreStore.genreMoviesList(selectedGenre.value, pageGenre.value);
+    await genreStore.genreMoviesList(selectedGenre.value, genrePage.value);
 });
 </script>
   

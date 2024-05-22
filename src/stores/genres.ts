@@ -6,13 +6,15 @@ import type { PopularMovie, PopularMovieResponse, PopularMoviesInfo } from '@/ty
 export const useGenreStore = defineStore('genres', () => {
   const genres = ref<Genre[]>([])
   const movies = ref<PopularMovie[]>([])
+  const currentPage = ref(1)
+  const totalPages = ref(0)
   const moviesInfoList = ref<PopularMoviesInfo[]>([])
 
   const url = 'https://api.themoviedb.org/3/genre/movie/list?language=en'
   const gettingUrlwithGenreId = (genreId: number, page: number) => {
     const url =
       genreId === 0
-        ? `${import.meta.env.VITE_BASE_URL}discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc`
+        ? `${import.meta.env.VITE_BASE_URL}discover/movie?include_adult=false&include_video=false&language=en-US&page=${page}&sort_by=popularity.desc`
         : `${import.meta.env.VITE_BASE_URL}discover/movie?include_adult=false&include_video=false&language=en-US&page=${page}&sort_by=popularity.desc&with_genres=${genreId}`
 
     return url
@@ -40,7 +42,10 @@ export const useGenreStore = defineStore('genres', () => {
       const url = gettingUrlwithGenreId(genreId, page)
       const res = await fetch(url, options)
       const json: PopularMovieResponse = await res.json()
+      console.log('genre', json.page)
       movies.value = json.results
+      currentPage.value = json.page
+      totalPages.value = json.total_pages
       const transformedData = json.results.map((movie) => ({
         title: movie.title,
         backdrop_path: movie.backdrop_path,
@@ -51,5 +56,5 @@ export const useGenreStore = defineStore('genres', () => {
       console.log('error: ', error)
     }
   }
-  return { initGenres, genreMoviesList, genres, movies, moviesInfoList }
+  return { initGenres, genreMoviesList, genres, movies, moviesInfoList, currentPage, totalPages }
 })
