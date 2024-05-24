@@ -11,7 +11,8 @@
                 <hr>
             </div>
         </div>
-        <Pagination :totalPages="popularStore.totalPages" :currentPage="popularStore.currentPage" />
+        <Pagination v-if="popularStore.popularMovies.length > 0" :totalPages="popularStore.totalPages"
+            :currentPage="popularStore.currentPage" />
     </div>
 </template>
 

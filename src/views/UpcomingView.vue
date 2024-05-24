@@ -38,6 +38,7 @@ watch(() => router.currentRoute.value.params.page, async (newValue) => {
                 <hr>
             </div>
         </div>
-        <Pagination :totalPages="upcomingStore.totalPages" :currentPage="upcomingStore.currentPage" />
+        <Pagination v-if="upcomingStore.upcomingMovies.length > 0" :totalPages="upcomingStore.totalPages"
+            :currentPage="upcomingStore.currentPage" />
     </div>
 </template>
