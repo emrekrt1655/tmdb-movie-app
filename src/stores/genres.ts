@@ -48,8 +48,9 @@ export const useGenreStore = defineStore('genres', () => {
       totalPages.value = json.total_pages
       const transformedData = json.results.map((movie) => ({
         title: movie.title,
-        backdrop_path: movie.backdrop_path,
-        id: movie.id
+        poster_path: movie.poster_path,
+        id: movie.id,
+        backdrop_path: movie.backdrop_path
       }))
       moviesInfoList.value = transformedData
     } catch (error) {

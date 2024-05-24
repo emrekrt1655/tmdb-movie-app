@@ -21,3 +21,9 @@
 const props = defineProps(['title', 'trendingList', 'trending', 'link', 'page'])
 import MovieCard from "@/components/MovieCard.vue"
 </script>
+
+<style>
+.movie-list {
+    height: 400px;
+}
+</style>

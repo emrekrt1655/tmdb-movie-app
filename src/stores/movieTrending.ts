@@ -28,8 +28,9 @@ export const useMovieTrendingStore = defineStore('movieTrending', () => {
       trendingMovies.value = json.results
       const transformedData = json.results.map((movie) => ({
         title: movie.title,
-        backdrop_path: movie.backdrop_path,
-        id: movie.id
+        poster_path: movie.poster_path,
+        id: movie.id,
+        backdrop_path: movie.backdrop_path
       }))
       trendingMoviesInfoList.value = transformedData
     } catch (err) {

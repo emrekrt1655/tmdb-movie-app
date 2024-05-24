@@ -1,6 +1,5 @@
 export interface PopularMovie {
   adult: boolean
-  backdrop_path: string
   genre_ids: number[]
   id: number
   original_language: string
@@ -13,6 +12,7 @@ export interface PopularMovie {
   video: boolean
   vote_average: number
   vote_count: number
+  backdrop_path: string
 }
 
 export interface PopularMovieResponse {
@@ -23,8 +23,9 @@ export interface PopularMovieResponse {
 
 export interface PopularMoviesInfo {
   title: string
-  backdrop_path: string
+  poster_path: string
   id: number
+  backdrop_path: string
 }
 
 export interface UpcomingMovieResponse extends PopularMovieResponse {

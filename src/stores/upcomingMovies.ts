@@ -34,8 +34,9 @@ export const useUpcomingMovieStore = defineStore('upcomingMovie', () => {
 
       const transformedData = json.results.map((movie) => ({
         title: movie.title,
-        backdrop_path: movie.backdrop_path,
-        id: movie.id
+        poster_path: movie.poster_path,
+        id: movie.id,
+        backdrop_path: movie.backdrop_path
       }))
       upcomingMoviesInfoList.value = transformedData
     } catch (err) {
