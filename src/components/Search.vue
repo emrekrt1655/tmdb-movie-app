@@ -16,7 +16,9 @@
                 class="search-results mt-2 top-1/2 text-white w-1/2 bg-gray-800 rounded-lg overflow-hidden absolute left-1/2 transform -translate-x-1/2 z-10">
                 <li v-for="(movie, index) in searchInput.trim() ? searchMovieStore.fiveElementsOfList : null"
                     :key="movie.id" class="px-4 py-2 border-b border-gray-700 cursor-pointer">
-                    <RouterLink :to="`/movie/${movie.id}`"> {{ index + 1 }}. {{ movie.title }} </RouterLink>
+                    <RouterLink :to="`/movie/${movie.title.replace(/ /g, '-')}/${movie.id}`"> {{ index + 1 }}. {{
+                        movie.title }}
+                    </RouterLink>
                 </li>
             </ul>
 

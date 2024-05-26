@@ -28,7 +28,7 @@ const router = createRouter({
       props: (route) => ({ page: route.query.page || 1 })
     },
     {
-      path: '/movie/:id',
+      path: '/movie/:title/:id',
       name: 'movie-detail',
       component: () => import('../views/MovieDetail.vue')
     },

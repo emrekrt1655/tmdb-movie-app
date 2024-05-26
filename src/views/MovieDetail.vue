@@ -15,7 +15,7 @@
                 </h1>
                 <div class="w-1/2" v-if="similarMovies && similarMovies.length > 0">
                     <RouterLink v-for="simMov, index in similarMovies" :key="simMov.id"
-                        :to="simMov ? `/movie/${simMov.id}` : ''" class="block">
+                        :to="simMov ? `/movie/${simMov.title.replace(/ /g, '-')}/${simMov.id}` : ''" class="block">
                         <div class="border rounded-lg p-4 mb-4 flex items-start">
                             <div class="rounded-full bg-red-700 p-2 mr-4 text-white">{{ index + 1 }}</div>
                             <div>
