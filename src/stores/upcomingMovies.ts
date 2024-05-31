@@ -11,6 +11,9 @@ export const useUpcomingMovieStore = defineStore('upcomingMovie', () => {
 
   const fiveElementsOfList = computed(() => upcomingMoviesInfoList.value.slice(0, 5))
 
+  const baseImgUrl = import.meta.env.VITE_BASE_IMAGE_URL
+  const noImageUrl = import.meta.env.VITE_BASE_NO_IMAGE
+
   const gettingUrl = (page: number) => {
     return `${import.meta.env.VITE_BASE_URL}movie/upcoming?language=en-US&page=${page}`
   }
@@ -28,15 +31,25 @@ export const useUpcomingMovieStore = defineStore('upcomingMovie', () => {
       const res = await fetch(url, options)
       const json: UpcomingMovieResponse = await res.json()
       upcomingMoviesDate.value = json.dates
-      upcomingMovies.value = json.results
       totalPages.value = json.total_pages
       currentPage.value = json.page
-
+      json.results.map((movie) => {
+        movie = {
+          ...movie,
+          backdrop_path: movie.backdrop_path
+            ? `${baseImgUrl}${movie.backdrop_path}`
+            : `${noImageUrl}`,
+          poster_path: movie.poster_path ? `${baseImgUrl}${movie.poster_path}` : `${noImageUrl}`
+        }
+        upcomingMovies.value.push(movie)
+      })
       const transformedData = json.results.map((movie) => ({
         title: movie.title,
-        poster_path: movie.poster_path,
-        id: movie.id,
+        poster_path: movie.poster_path ? `${baseImgUrl}${movie.poster_path}` : `${noImageUrl}`,
         backdrop_path: movie.backdrop_path
+          ? `${baseImgUrl}${movie.backdrop_path}`
+          : `${noImageUrl}`,
+        id: movie.id
       }))
       upcomingMoviesInfoList.value = transformedData
     } catch (err) {

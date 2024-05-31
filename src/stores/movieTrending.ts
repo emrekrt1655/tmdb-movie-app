@@ -8,6 +8,9 @@ export const useMovieTrendingStore = defineStore('movieTrending', () => {
 
   const fiveElementsOfList = computed(() => trendingMoviesInfoList.value.slice(0, 5))
 
+  const baseImgUrl = import.meta.env.VITE_BASE_IMAGE_URL
+  const noImageUrl = import.meta.env.VITE_BASE_NO_IMAGE
+
   const gettingUrl = (time: string) => {
     return `${import.meta.env.VITE_BASE_URL}/trending/movie/${time}?language=en-US`
   }
@@ -25,12 +28,23 @@ export const useMovieTrendingStore = defineStore('movieTrending', () => {
     try {
       const res = await fetch(url, options)
       const json: PopularMovieResponse = await res.json()
-      trendingMovies.value = json.results
+      json.results.map((movie) => {
+        movie = {
+          ...movie,
+          backdrop_path: movie.backdrop_path
+            ? `${baseImgUrl}${movie.backdrop_path}`
+            : `${noImageUrl}`,
+          poster_path: movie.poster_path ? `${baseImgUrl}${movie.poster_path}` : `${noImageUrl}`
+        }
+        trendingMovies.value.push(movie)
+      })
       const transformedData = json.results.map((movie) => ({
         title: movie.title,
-        poster_path: movie.poster_path,
-        id: movie.id,
+        poster_path: movie.poster_path ? `${baseImgUrl}${movie.poster_path}` : `${noImageUrl}`,
         backdrop_path: movie.backdrop_path
+          ? `${baseImgUrl}${movie.backdrop_path}`
+          : `${noImageUrl}`,
+        id: movie.id
       }))
       trendingMoviesInfoList.value = transformedData
     } catch (err) {

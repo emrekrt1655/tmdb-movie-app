@@ -1,6 +1,5 @@
 <script setup lang="ts">
 const props = defineProps(['movie', 'trending', 'index', 'isName']);
-const baseUrl = import.meta.env.VITE_BASE_IMAGE_URL;
 </script>
 
 <template>
@@ -10,7 +9,7 @@ const baseUrl = import.meta.env.VITE_BASE_IMAGE_URL;
             <div class="relative flex h-full">
                 <span v-if="props.trending" class="index-label">{{ props.index }}</span>
                 <img class="h-full" :class="{ 'w-3/4': props.trending }" v-if="props.movie && props.movie.poster_path"
-                    :src="`${baseUrl}${props.movie.poster_path}`" :alt="props.movie.title">
+                    :src="`${props.movie.poster_path}`" :alt="props.movie.title">
                 <p v-else>No backdrop path available for this movie.</p>
             </div>
         </RouterLink>

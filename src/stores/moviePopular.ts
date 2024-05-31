@@ -10,6 +10,9 @@ export const useMoviePopularStore = defineStore('moviePopular', () => {
 
   const fiveElementsOfList = computed(() => popularMovies.value.slice(0, 5))
 
+  const baseImgUrl = import.meta.env.VITE_BASE_IMAGE_URL
+  const noImageUrl = import.meta.env.VITE_BASE_NO_IMAGE
+
   const gettingUrl = (page: number) => {
     return `${import.meta.env.VITE_BASE_URL}movie/popular?language=en-US&page=${page}`
   }
@@ -26,16 +29,28 @@ export const useMoviePopularStore = defineStore('moviePopular', () => {
       const url = gettingUrl(page)
       const res = await fetch(url, options)
       const json: PopularMovieResponse = await res.json()
-      popularMovies.value = json.results
+      json.results.map((movie) => {
+        movie = {
+          ...movie,
+          backdrop_path: movie.backdrop_path
+            ? `${baseImgUrl}${movie.backdrop_path}`
+            : `${noImageUrl}`,
+          poster_path: movie.poster_path ? `${baseImgUrl}${movie.poster_path}` : `${noImageUrl}`
+        }
+        popularMovies.value.push(movie)
+      })
       totalPages.value = json.total_pages
       currentPage.value = json.page
       const transformedData = json.results.map((movie) => ({
         title: movie.title,
-        poster_path: movie.poster_path,
-        backdrop_path: movie.backdrop_path,
+        poster_path: movie.poster_path ? `${baseImgUrl}${movie.poster_path}` : `${noImageUrl}`,
+        backdrop_path: movie.backdrop_path
+          ? `${baseImgUrl}${movie.backdrop_path}`
+          : `${noImageUrl}`,
         id: movie.id
       }))
       popularMoviesInfoList.value = transformedData
+      console.log(transformedData)
     } catch (err) {
       console.error('error:' + err)
     }
