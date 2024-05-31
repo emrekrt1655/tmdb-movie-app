@@ -1,10 +1,10 @@
 import { computed, ref } from 'vue'
 import { defineStore } from 'pinia'
-import type { PopularMovie, MovieResponse } from '@/types/Movie'
+import type { Movies, MovieResponse } from '@/types/Movie'
 
 export const useDetailedMovie = defineStore('detailedMovie', () => {
   const movie = ref<MovieResponse>()
-  const similarMovies = ref<PopularMovie[]>([])
+  const similarMovies = ref<Movies[]>([])
   const isLoading = ref(true)
   const loadError = ref(false)
   const movieImage = ref('')

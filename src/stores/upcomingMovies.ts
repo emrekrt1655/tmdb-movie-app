@@ -1,11 +1,11 @@
 import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
-import type { PopularMovie, PopularMoviesInfo, UpcomingMovieResponse } from '../types/Movie'
+import type { Movies, MoviesInfo, UpcomingMovieResponse } from '../types/Movie'
 
 export const useUpcomingMovieStore = defineStore('upcomingMovie', () => {
-  const upcomingMovies = ref<PopularMovie[]>([])
+  const upcomingMovies = ref<Movies[]>([])
   const upcomingMoviesDate = ref<{ maximum: string; minimum: string }>()
-  const upcomingMoviesInfoList = ref<PopularMoviesInfo[]>([])
+  const upcomingMoviesInfoList = ref<MoviesInfo[]>([])
   const totalPages = ref<number>(0)
   const currentPage = ref<number>(1)
 

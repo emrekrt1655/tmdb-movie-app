@@ -1,12 +1,12 @@
 import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
-import type { PopularMovieResponse, PopularMovie, PopularMoviesInfo } from '../types/Movie'
+import type { MoviesResponse, Movies, MoviesInfo } from '../types/Movie'
 
 export const useMoviePopularStore = defineStore('moviePopular', () => {
-  const popularMovies = ref<PopularMovie[]>([])
+  const popularMovies = ref<Movies[]>([])
   const totalPages = ref<number>(0)
   const currentPage = ref<number>(1)
-  const popularMoviesInfoList = ref<PopularMoviesInfo[]>([])
+  const popularMoviesInfoList = ref<MoviesInfo[]>([])
 
   const fiveElementsOfList = computed(() => popularMovies.value.slice(0, 5))
 
@@ -28,7 +28,7 @@ export const useMoviePopularStore = defineStore('moviePopular', () => {
     try {
       const url = gettingUrl(page)
       const res = await fetch(url, options)
-      const json: PopularMovieResponse = await res.json()
+      const json: MoviesResponse = await res.json()
       json.results.map((movie) => {
         movie = {
           ...movie,
@@ -50,7 +50,6 @@ export const useMoviePopularStore = defineStore('moviePopular', () => {
         id: movie.id
       }))
       popularMoviesInfoList.value = transformedData
-      console.log(transformedData)
     } catch (err) {
       console.error('error:' + err)
     }

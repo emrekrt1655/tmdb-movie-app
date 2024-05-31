@@ -1,14 +1,14 @@
 import { ref } from 'vue'
 import { defineStore } from 'pinia'
 import type { Genre } from '../types/Genre'
-import type { PopularMovie, PopularMovieResponse, PopularMoviesInfo } from '@/types/Movie'
+import type { Movies, MoviesResponse, MoviesInfo } from '@/types/Movie'
 
 export const useGenreStore = defineStore('genres', () => {
   const genres = ref<Genre[]>([])
-  const movies = ref<PopularMovie[]>([])
+  const movies = ref<Movies[]>([])
   const currentPage = ref(1)
   const totalPages = ref(0)
-  const moviesInfoList = ref<PopularMoviesInfo[]>([])
+  const moviesInfoList = ref<MoviesInfo[]>([])
 
   const url = 'https://api.themoviedb.org/3/genre/movie/list?language=en'
   const gettingUrlwithGenreId = (genreId: number, page: number) => {
@@ -41,7 +41,7 @@ export const useGenreStore = defineStore('genres', () => {
     try {
       const url = gettingUrlwithGenreId(genreId, page)
       const res = await fetch(url, options)
-      const json: PopularMovieResponse = await res.json()
+      const json: MoviesResponse = await res.json()
       console.log('genre', json.page)
       movies.value = json.results
       currentPage.value = json.page

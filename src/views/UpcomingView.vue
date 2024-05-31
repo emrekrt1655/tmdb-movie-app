@@ -2,7 +2,6 @@
 import MovieCard from '@/components/MovieCard.vue'
 import { useUpcomingMovieStore } from '@/stores/upcomingMovies';
 import Pagination from '@/components/Pagination.vue'
-const props = defineProps(['page'])
 import router from '@/router';
 import { watch } from 'vue';
 const upcomingStore = useUpcomingMovieStore()

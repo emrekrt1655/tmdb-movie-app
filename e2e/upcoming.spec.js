@@ -27,7 +27,6 @@ test.describe('Upcoming movies test case', () => {
     await page.locator('strong.date').first().waitFor()
     const minimumDateElement = await page.locator('strong.date').first().textContent()
     const maximumDateElement = await page.locator('strong.date').last().textContent()
-    console.log('minimumDate', minimumDateElement)
     expect(minimumDateElement.trim()).not.toBe('')
     expect(maximumDateElement.trim()).not.toBe('')
   })

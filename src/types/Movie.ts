@@ -1,4 +1,4 @@
-export interface PopularMovie {
+export interface Movies {
   adult: boolean
   genre_ids: number[]
   id: number
@@ -15,20 +15,20 @@ export interface PopularMovie {
   backdrop_path: string
 }
 
-export interface PopularMovieResponse {
+export interface MoviesResponse {
   page: number
-  results: PopularMovie[]
+  results: Movies[]
   total_pages: number
 }
 
-export interface PopularMoviesInfo {
+export interface MoviesInfo {
   title: string
   poster_path: string
   id: number
   backdrop_path: string
 }
 
-export interface UpcomingMovieResponse extends PopularMovieResponse {
+export interface UpcomingMovieResponse extends MoviesResponse {
   dates: {
     maximum: string
     minimum: string
