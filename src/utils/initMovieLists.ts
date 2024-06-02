@@ -20,8 +20,8 @@ function isUpcomingMovieResponse(
 
 export const initMovieList = async (
   movies: Ref<Movies[]>,
-  moviesInfoList: Ref<MoviesInfo[]>,
   givenUrl: string,
+  moviesInfoList?: Ref<MoviesInfo[]>,
   totalPages?: Ref<number>,
   currentPage?: Ref<number>,
   dates?: Ref<{ maximum: string; minimum: string }>
@@ -57,7 +57,9 @@ export const initMovieList = async (
       backdrop_path: movie.backdrop_path ? `${baseImgUrl}${movie.backdrop_path}` : `${noImageUrl}`,
       id: movie.id
     }))
-    moviesInfoList.value = transformedData
+    if (moviesInfoList) {
+      moviesInfoList.value = transformedData
+    }
   } catch (err) {
     console.error('error:' + err)
   }

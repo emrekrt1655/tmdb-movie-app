@@ -15,8 +15,8 @@ export const useUpcomingMovieStore = defineStore('upcomingMovie', () => {
   const initUpcomingMovies = (page: number) => {
     initMovieList(
       upcomingMovies,
-      upcomingMoviesInfoList,
       `movie/upcoming?language=en-US&page=${page}`,
+      upcomingMoviesInfoList,
       totalPages,
       currentPage,
       upcomingMoviesDate

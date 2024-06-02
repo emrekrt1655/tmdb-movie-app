@@ -10,7 +10,7 @@ export const useMovieTrendingStore = defineStore('movieTrending', () => {
   const fiveElementsOfList = computed(() => trendingMoviesInfoList.value.slice(0, 5))
 
   const initTrendingMovies = async (time: string) => {
-    initMovieList(trendingMovies, trendingMoviesInfoList, `trending/movie/${time}?language=en-US`)
+    initMovieList(trendingMovies, `trending/movie/${time}?language=en-US`, trendingMoviesInfoList)
   }
 
   return { trendingMovies, trendingMoviesInfoList, initTrendingMovies, fiveElementsOfList }

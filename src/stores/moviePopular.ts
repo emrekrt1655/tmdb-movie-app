@@ -14,8 +14,8 @@ export const useMoviePopularStore = defineStore('moviePopular', () => {
   const initPopularMovies = (page: number) => {
     initMovieList(
       popularMovies,
-      popularMoviesInfoList,
       `movie/popular?language=en-US&page=${page}`,
+      popularMoviesInfoList,
       totalPages,
       currentPage
     )
