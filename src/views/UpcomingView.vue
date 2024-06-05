@@ -2,12 +2,13 @@
 import MovieCard from '@/components/MovieCard.vue'
 import { useUpcomingMovieStore } from '@/stores/upcomingMovies';
 import Pagination from '@/components/Pagination.vue'
-import router from '@/router';
 import { watch } from 'vue';
+import { useRouter } from 'vue-router';
 const upcomingStore = useUpcomingMovieStore()
+const router = useRouter();
 
-watch(() => router.currentRoute.value.params.page, async (newValue) => {
-    await upcomingStore.initUpcomingMovies(+newValue);
+watch(() => router.currentRoute.value.params.page, (newValue) => {
+    upcomingStore.initUpcomingMovies(+newValue);
     router.push({ params: { page: +newValue } });
 })
 

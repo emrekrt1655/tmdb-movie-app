@@ -19,13 +19,16 @@
 <script setup lang="ts">
 import MovieCard from '@/components/MovieCard.vue'
 import Pagination from '@/components/Pagination.vue'
-import router from '@/router';
 import { useMoviePopularStore } from '@/stores/moviePopular';
 import { ref, computed, watch } from 'vue';
+import { useRouter } from 'vue-router';
+const popularPage = ref<number>(1)
+const router = useRouter()
 
-watch(() => router.currentRoute.value.params.page, async (newValue) => {
-    await popularStore.initPopularMovies(+newValue)
-    router.push({ params: { page: +newValue } });
+watch(() => router.currentRoute.value.params.page, (newValue) => {
+    popularPage.value = +newValue || 1
+    popularStore.initPopularMovies(popularPage.value)
+    router.push({ params: { page: popularPage.value } });
 })
 
 const popularStore = useMoviePopularStore();
