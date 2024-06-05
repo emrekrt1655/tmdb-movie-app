@@ -16,8 +16,7 @@
                 <MovieCard :isMovies="true" :movie="movie" :index="index + 1" class="mb-3" />
             </div>
         </div>
-        <Pagination v-if="genreStore.movies.length > 0" :currentPage="genreStore.currentPage"
-            :totalPages="genreStore.totalPages" />
+        <Pagination v-if="!searchInput" :currentPage="genreStore.currentPage" :totalPages="genreStore.totalPages" />
     </div>
 </template>
   

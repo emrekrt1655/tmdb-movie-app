@@ -7,7 +7,6 @@ export const useSearchMovieStore = defineStore('searchMovie', () => {
   const searchMovies = ref<Movies[]>([])
   const searchInput = ref('')
   const fiveElementsOfList = computed(() => searchMovies.value.slice(0, 5))
-  console.log(fiveElementsOfList)
 
   const initSearchMovies = async (searchInput: string, page: number) => {
     initMovieList(
