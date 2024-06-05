@@ -37,6 +37,12 @@ const router = createRouter({
       name: 'movies',
       component: () => import('../views/MoviesView.vue'),
       props: (route) => ({ page: route.query.page || 1 })
+    },
+    {
+      path: '/animes/:page',
+      name: 'animes',
+      component: () => import('../views/AnimeView.vue'),
+      props: (route) => ({ page: route.query.page || 1 })
     }
   ]
 })

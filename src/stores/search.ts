@@ -7,6 +7,9 @@ export const useSearchMovieStore = defineStore('searchMovie', () => {
   const searchMovies = ref<Movies[]>([])
   const searchInput = ref('')
   const fiveElementsOfList = computed(() => searchMovies.value.slice(0, 5))
+  const searchAnimeMovies = computed(() =>
+    searchMovies.value.filter((movie) => movie.genre_ids.includes(16))
+  )
 
   const initSearchMovies = async (searchInput: string, page: number) => {
     initMovieList(
@@ -14,5 +17,5 @@ export const useSearchMovieStore = defineStore('searchMovie', () => {
       `search/movie?query=${searchInput}&include_adult=false&language=en-US&page=${page}`
     )
   }
-  return { searchInput, searchMovies, fiveElementsOfList, initSearchMovies }
+  return { searchInput, searchMovies, fiveElementsOfList, initSearchMovies, searchAnimeMovies }
 })
