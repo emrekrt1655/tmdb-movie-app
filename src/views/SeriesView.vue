@@ -1,6 +1,6 @@
 <template>
     <div class="w-full h-full mt-6 container mx-auto w-4/5">
-        <h1 class="text-white text-3xl mb-6">Movies</h1>
+        <h1 class="text-white text-3xl mb-6">Series</h1>
         <div class="ml-6 mb-6">
             <select v-model="selectedGenre" class="text-black border border-gray-300 rounded-md px-3 py-2 w-1/5 mr-6">
                 <option :value="0">All Genres</option>
@@ -11,7 +11,7 @@
                 <option :value="0">All Years</option>
                 <option v-for="year in discoverMovie.yearList" :key="year" :value="year">{{ year }}</option>
             </select>
-            <input v-model="searchInput" @input="searchMovie" placeholder="Search movies"
+            <input v-model="searchInput" @input="searchMovie" placeholder="Search TV Series"
                 class="text-black border border-gray-300 rounded-md w-1/5  px-3 py-2 mr-6">
             <button @click="resetInputs"
                 class="text-black border border-gray-300 rounded-md px-3  py-2 w-1/5 mr-6 bg-white"> Reset </button>
@@ -19,9 +19,9 @@
 
         <div class="ml-6 w-full flex flex-row flex-wrap">
             <div class="mb-3 w-1/5"
-                v-for="(movie, index) in searchInput.trim() ? searchMovieStore.searchMovies : discoverMovie.movies"
-                :key="movie.id">
-                <MovieCard :isMovies="true" :movie="movie" :index="index + 1" class="mb-3" />
+                v-for="(serie, index) in searchInput.trim() ? searchMovieStore.searchMovies : discoverMovie.series"
+                :key="serie.id">
+                <SerieCard :serie="serie" class="mb-3" />
             </div>
         </div>
         <Pagination v-if="!searchInput" :currentPage="discoverMovie.currentPage" :totalPages="discoverMovie.totalPages" />
@@ -29,7 +29,7 @@
 </template>
   
 <script setup lang="ts">
-import MovieCard from '@/components/MovieCard.vue';
+import SerieCard from '@/components/SerieCard.vue';
 import Pagination from '@/components/Pagination.vue';
 import { useSearchMovieStore } from '@/stores/search';
 import { useDiscoverMovieStore } from '@/stores/discoverMovie';
@@ -61,18 +61,18 @@ watch(() => router.currentRoute.value.params.page, async (newValue) => {
 });
 
 onMounted(async () => {
-    await discoverMovie.initGenres('movie');
-    await discoverMovie.discoverMovies(selectedGenre.value, yearInput.value, discoverPage.value)
+    await discoverMovie.initGenres('tv');
+    await discoverMovie.discoverSeries(selectedGenre.value, yearInput.value, discoverPage.value)
 
 });
 watch(selectedGenre, async (newValue) => {
     selectedGenre.value = newValue
-    await discoverMovie.discoverMovies(selectedGenre.value, yearInput.value, discoverPage.value);
+    await discoverMovie.discoverSeries(selectedGenre.value, yearInput.value, discoverPage.value);
 });
 
 watch(yearInput, async (newValue) => {
     yearInput.value = newValue
-    await discoverMovie.discoverMovies(selectedGenre.value, yearInput.value, discoverPage.value);
+    await discoverMovie.discoverSeries(selectedGenre.value, yearInput.value, discoverPage.value);
 });
 
 const resetInputs = () => {

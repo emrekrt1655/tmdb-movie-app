@@ -33,6 +33,11 @@ const router = createRouter({
       component: () => import('../views/MovieDetail.vue')
     },
     {
+      path: '/serie/:title/:id',
+      name: 'serie-detail',
+      component: () => import('../views/SerieDetail.vue')
+    },
+    {
       path: '/movies/:page',
       name: 'movies',
       component: () => import('../views/MoviesView.vue'),
@@ -42,6 +47,12 @@ const router = createRouter({
       path: '/animes/:page',
       name: 'animes',
       component: () => import('../views/AnimeView.vue'),
+      props: (route) => ({ page: route.query.page || 1 })
+    },
+    {
+      path: '/series/:page',
+      name: 'series',
+      component: () => import('../views/SeriesView.vue'),
       props: (route) => ({ page: route.query.page || 1 })
     }
   ]
