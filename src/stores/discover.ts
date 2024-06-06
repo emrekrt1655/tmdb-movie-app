@@ -8,7 +8,7 @@ import { yearList } from '@/utils/discoverUtils'
 import type { Serie } from '@/types/Serie'
 import { initSeriesList } from '@/utils/initSerieList'
 
-export const useDiscoverMovieStore = defineStore('discoverMovies', () => {
+export const useDiscoverStore = defineStore('discover', () => {
   const genres = ref<Genre[]>([])
   const movies = ref<Movies[]>([])
   const series = ref<Serie[]>([])
