@@ -1,6 +1,6 @@
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import { defineStore } from 'pinia'
-import type { DetailedSerie } from '@/types/Serie'
+import type { DetailedSerie, Season } from '@/types/Serie'
 
 export const useDetailedSerie = defineStore('detailedSerie', () => {
   const detailedSerie = ref<DetailedSerie>()
@@ -9,6 +9,8 @@ export const useDetailedSerie = defineStore('detailedSerie', () => {
   const serieImage = ref('')
   const baseImgUrl = import.meta.env.VITE_BASE_IMAGE_URL
   const noImageUrl = import.meta.env.VITE_BASE_NO_IMAGE
+
+  const seasons = computed(() => detailedSerie.value?.seasons)
 
   const fetchDetailedSerie = async (id: string | string[]) => {
     const url = `${import.meta.env.VITE_BASE_URL}/tv/${id}?language=en-US`
@@ -39,5 +41,5 @@ export const useDetailedSerie = defineStore('detailedSerie', () => {
     }
   }
 
-  return { detailedSerie, fetchDetailedSerie, serieImage }
+  return { detailedSerie, fetchDetailedSerie, serieImage, seasons }
 })

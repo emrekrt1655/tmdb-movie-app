@@ -13,7 +13,7 @@
             </p>
             <ul
                 class="search-results mt-2 top-1/2 text-white w-1/2 bg-gray-800 rounded-lg overflow-hidden absolute left-1/2 transform -translate-x-1/2 z-10">
-                <li v-for="(movie) in searchInput.trim() ? searchMovieStore.fiveElementsOfList : null" :key="movie.id"
+                <li v-for="(movie) in searchInput.trim() ? searchStore.fiveElementsOfList : null" :key="movie.id"
                     class="px-4 py-2 border-b border-gray-700 cursor-pointer">
                     <RouterLink :to="`/movie/${movie.title.replace(/ /g, '-')}/${movie.id}`">
                         <div class="flex">
@@ -35,14 +35,14 @@
 
 <script setup lang="ts">
 import { useMoviePopularStore } from '@/stores/moviePopular'
-import { useSearchMovieStore } from '@/stores/search'
+import { useSearchStore } from '@/stores/search'
 import { ref } from 'vue';
 const moviePopularStore = useMoviePopularStore()
-const searchMovieStore = useSearchMovieStore()
+const searchStore = useSearchStore()
 const searchInput = ref('')
 const page = ref(1)
 const handleInput = () => {
-    searchMovieStore.initSearchMovies(searchInput.value, page.value)
+    searchStore.initSearchMovies(searchInput.value, page.value)
 };
 const randomNumber = Math.floor(Math.random() * 20)
 </script>
