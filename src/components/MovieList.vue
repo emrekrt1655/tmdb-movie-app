@@ -1,5 +1,5 @@
 <template>
-    <div class="w-full mt-6 ">
+    <div class="w-full mt-6">
         <div class="w-4/5 m-auto">
             <div class="text-white text-2xl flex justify-between">
 
@@ -8,7 +8,7 @@
                     :to="props.link === 'trending' ? `${props.link}` : `${props.link}/${props.page}`">All</RouterLink>
 
             </div>
-            <div class=" movie-list flex ">
+            <div class=" movie-list flex justify-between">
                 <MovieCard v-for=" (movie, index) in trendingList" :movie="movie" :trending="props.trending" :key="movie.id"
                     :index="index + 1" />
             </div>
