@@ -50,7 +50,7 @@ const setPage = (value: number) => {
 </script>
 
 <template>
-    <div class="flex justify-center mt-6 w-3/5">
+    <div class="flex justify-center mt-6 w-3/5 m-auto">
         <button @click="setPage(currentPage - 1)" :disabled="currentPage === 1"
             class="px-3 py-1 text-white mr-2">Before</button>
         <button v-for="pageNumber in pageNumbers" :key="pageNumber" @click="setPage(pageNumber)"
